@@ -14,14 +14,14 @@ class Human(db.Model):
     __tablename__ = "humans"
 
     human_id = db.Column(db.Integer,
-                        autoincremnt=True,
+                        autoincrement=True,
                         primary_key=True)
     fname = db.Column(db.String(25), nullable=False)
     lname = db.Column(db.String(25), nullable=False)
-    email = db.Column(db.string(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
-        return f'<Human: human_id={human_id}, fname={fname}, lname={lname}>'
+        return f'<Human: human_id={self.human_id}, fname={self.fname}, lname={self.lname}>'
 
 
 class Animal(db.Model):
@@ -30,7 +30,7 @@ class Animal(db.Model):
     __tablename__ = 'animals'
 
     animal_id = db.Column(db.Integer,
-                          autoincremnt=True,
+                          autoincrement=True,
                           primary_key=True)
     human_id = db.Column(db.Integer, db.ForeignKey('humans.human_id'))
     name = db.Column(db.String(50), nullable=False)
@@ -40,8 +40,8 @@ class Animal(db.Model):
     human = db.relationship('Human', backref='animals')
 
     def __repr__(self):
-        return f"""<Animal: animal_id={animal_id}, name={name}, 
-                    animal_species={animal_species}>"""
+        return f"""<Animal: animal_id={self.animal_id}, name={self.name}, 
+                    animal_species={self.animal_species}>"""
 
 
 def connect_to_db(app):
