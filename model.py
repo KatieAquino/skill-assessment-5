@@ -40,8 +40,7 @@ class Animal(db.Model):
     human = db.relationship('Human', backref='animals')
 
     def __repr__(self):
-        return f"""<Animal: animal_id={self.animal_id}, name={self.name}, 
-                    animal_species={self.animal_species}>"""
+        return f"<Animal: animal_id={self.animal_id}, name={self.name}, animal_species={self.animal_species}>"
 
 
 def connect_to_db(app):
