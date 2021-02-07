@@ -61,6 +61,20 @@ def print_directory():
     SQLAlchemy relationship to retrieve additional information)
     """
 
+    # directory = db.session.query(Animal.human_id).group_by(Animal.human_id).all()
+    # directory = db.session.query(Animal).join(Human).group_by(Human.human_id).all()
+    # directory = db.session.query(Human).outerjoin(Animal).group_by(Human.human_id).all()
+    # directory = db.session.query(Animal).all() 
+    
+    directory = db.session.query(Human).all() #(╯°□°)╯︵ ┻━┻ I overthought this LOL
+
+    for person in directory:
+        pets = person.animal
+        print(f'{person.fname} {person.lname}')
+        
+        for pet in pets:
+            print(f'- {pet.name} ({pet.animal_species})')
+
 
 def find_humans_by_animal_species(species):
     """Return a list of all humans who have animals of the given species.
@@ -73,6 +87,13 @@ def find_humans_by_animal_species(species):
     relationship! Also, you can pursue uniqueness in a Pythonic way --- you
     don't have to do it with pure SQLAlchemy)
     """
+    #this returns a list as objects, if the list was supposed to only return names
+    #would have simply changed parameters within .query() and group_by() to be 
+    #Human.fname, Human.lname
+    directory = db.session.query(Human).join(Animal).filter_by(animal_species=species
+                ).group_by(Human).all()
+    
+    return directory
 
 
 if __name__ == '__main__':

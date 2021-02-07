@@ -35,7 +35,7 @@ def get_human(human_id):
         return jsonify({'status': 'error',
                         'message': 'No human found with that ID'})
 
-
+#Had to add port, computer was unhappy with given option
 if __name__ == '__main__':
     connect_to_db(app)
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', port='8080', debug=True)

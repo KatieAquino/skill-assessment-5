@@ -20,6 +20,11 @@ class Human(db.Model):
     lname = db.Column(db.String(25), nullable=False)
     email = db.Column(db.String(100), nullable=False)
 
+    ## Why did my code break with backref in Animal rather than Human
+    # caused queries to say no foreign key was set up.
+    # Does backref need to be in the 'one' aspect of a one to many/many to one?
+    animal = db.relationship('Animal', backref='animals') 
+
     def __repr__(self):
         return f'<Human: human_id={self.human_id}, fname={self.fname}, lname={self.lname}>'
 
@@ -37,7 +42,7 @@ class Animal(db.Model):
     animal_species = db.Column(db.String(25), nullable=False)
     birth_year = db.Column(db.Integer) #birth year could be unknown, allowing null
 
-    human = db.relationship('Human', backref='animals')
+    # human = db.relationship('Human', backref='animals') 
 
     def __repr__(self):
         return f"<Animal: animal_id={self.animal_id}, name={self.name}, animal_species={self.animal_species}>"
